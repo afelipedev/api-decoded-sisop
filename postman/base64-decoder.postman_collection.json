@@ -1,0 +1,81 @@
+{
+  "info": {
+    "name": "Base64 File Decoder API",
+    "description": "Coleção de exemplos para o endpoint POST /api/decode-file.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Decode - PDF",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/decode-file",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "decode-file"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Escola\": {\n    \"INEP\": \"52013189\",\n    \"Date\": \"24/02/2026\",\n    \"File\": {\n      \"filename\": \"teste.pdf\",\n      \"mime-type\": \"application/pdf\",\n      \"extension\": \".pdf\",\n      \"base64\": \"JVBERi0xLjQKJeLjz9MKCg==\"\n    }\n  }\n}"
+        },
+        "description": "Decodifica um PDF de exemplo. O resultado é o arquivo binário (use 'Send and Download')."
+      }
+    },
+    {
+      "name": "Decode - JPEG",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/decode-file",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "decode-file"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Escola\": {\n    \"INEP\": \"52013189\",\n    \"Date\": \"24/02/2026\",\n    \"File\": {\n      \"filename\": \"whats.jpeg\",\n      \"mime-type\": \"image/jpeg\",\n      \"extension\": \".jpeg\",\n      \"base64\": \"/9j/4AAQSkZJRgABAQAAAQABAAD/2wBD\"\n    }\n  }\n}"
+        },
+        "description": "Decodifica uma imagem JPEG de exemplo."
+      }
+    },
+    {
+      "name": "Erro - Base64 inválido",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/decode-file",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "decode-file"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Escola\": {\n    \"File\": {\n      \"filename\": \"teste.pdf\",\n      \"mime-type\": \"application/pdf\",\n      \"base64\": \"isto-nao-eh-base64!!!\"\n    }\n  }\n}"
+        },
+        "description": "Espera HTTP 400 com { success: false, message: 'Base64 inválido' }."
+      }
+    }
+  ]
+}
